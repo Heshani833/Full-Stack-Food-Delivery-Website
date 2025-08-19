@@ -1,15 +1,40 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 .navbar {
-  background-color: #fff;
-  padding: 1rem;
-}
-.logo {
-    margin-right: 0;
-    width: 200px;  
-    height: 120px;  
+  margin-bottom: 600px;
+  padding: 20px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+.navbar .logo {
+  width: 150px;
+}
+
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: 50px;
+  color: blueviolet;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.navbar button {
+  background: rgb(220, 217, 217);
+  font-size: 16px;
+  color: black;
+  border: 1px solid tomato;
+  padding: 10px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.navbar button:hover {
+  background: tomato;
+  color: white;
+}

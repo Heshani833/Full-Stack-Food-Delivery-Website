@@ -1,11 +1,13 @@
 // Navbar.jsx
-import React from 'react';
+import React,{useState} from 'react';
 import './Navbar.css';
 import logo from '../../assets/logo.png'; 
 import search_icon from '../../assets/search_icon.png';
 import basket_icon from '../../assets/basket_icon.png';
 
 const Navbar = () => {
+const [menu, setMenu] = useState("home");
+
   return (
     <div className="navbar">
       <img src={logo} alt="Logo" className="logo" />
