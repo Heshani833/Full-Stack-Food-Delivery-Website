@@ -17,6 +17,7 @@
   color: #fff;
   max-width: 600px;
   padding: 20px;
+  animation: fadeIn 3s ease-in-out;
 }
 
 .header-contents h2 {

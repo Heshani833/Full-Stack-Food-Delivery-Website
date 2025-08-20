@@ -6,8 +6,12 @@ const Header = () => {
     <div className="header">
       <div className="header-contents">
         <h2>Order your favourite order</h2>
-        <p>Order now and enjoy delicious food delivered to your doorstep!</p>
-        <button>Order Now</button>
+        <p>
+          Discover a wide variety of mouth-watering dishes made with fresh
+          ingredients and delivered hot and fast to your door. Enjoy
+          restaurant-quality meals without leaving the comfort of your home.
+        </p>
+        <button>View Menu</button>
       </div>
     </div>
   );
