@@ -1,14 +1,27 @@
-import React from 'react'
-import './ExploreMenu.css';
+import React from "react";
+import "./ExploreMenu.css";
+import { menu_list } from "../../assets/assets";
 
 const ExploreMenu = () => {
   return (
     <div className="explore-menu">
       <h2>Explore Our Menu</h2>
-      <p>Discover a variety of delicious dishes crafted by our chefs.</p>
+      <p className="explore-menu-text">
+        Discover a variety of delicious dishes crafted by our chefs.
+      </p>
+      <div className="explore-menu-list">
+        {menu_list.map((item, index) => {
+          return (
+            <div key={index} className="explore-menu-list-item">
+              <img src={item.menu_image} alt="" />
+              <p>{item.menu_name}</p>
+            </div>
+          );
+        })}
+      </div>
       <button>View Full Menu</button>
     </div>
-  )
-}
+  );
+};
 
-export default ExploreMenu
+export default ExploreMenu;
