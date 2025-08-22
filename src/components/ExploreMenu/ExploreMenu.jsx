@@ -5,7 +5,7 @@ import { menu_list } from "../../assets/assets";
 const ExploreMenu = () => {
   return (
     <div className="explore-menu">
-      <h2>Explore Our Menu</h2>
+      <h1>Explore Our Menu</h1>
       <p className="explore-menu-text">
         Discover a variety of delicious dishes crafted by our chefs.
       </p>
