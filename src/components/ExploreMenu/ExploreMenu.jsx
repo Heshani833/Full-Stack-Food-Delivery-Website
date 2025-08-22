@@ -19,7 +19,7 @@ const ExploreMenu = () => {
           );
         })}
       </div>
-      <button>View Full Menu</button>
+      <hr />
     </div>
   );
 };
