@@ -1,36 +1,40 @@
-import React from "react";
-import { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./FoodItem.css";
 import { assets } from "../../assets/assets";
+import { StoreContext } from "../../Context/StoreContext";
 
 const FoodItem = ({ id, name, price, description, image }) => {
-  const [itemCount, setItemCount] = useState(0);
+  const [count, setCount] = useState(0);
+  const { addToCart, removeFromCart } = useContext(StoreContext);
+
+  const handleAdd = () => {
+    setCount((prev) => prev + 1);
+    addToCart(id);
+  };
+
+  const handleRemove = () => {
+    if (count > 0) {
+      setCount((prev) => prev - 1);
+      removeFromCart(id);
+    }
+  };
 
   return (
     <div className="food-item">
       <div className="food-item-img-container">
         <img className="food-item-image" src={image} alt={name} />
-        {!itemCount ? (
+        {count === 0 ? (
           <img
             className="add"
-            onClick={() => setItemCount((prev) => prev + 1)}
+            onClick={handleAdd}
             src={assets.add_icon_white}
             alt="Add"
           />
         ) : (
           <div className="food-item-counter">
-            {" "}
-            <img
-              onClick={() => setItemCount((prev) => prev - 1)}
-              src={assets.remove_icon_red}
-              alt=""
-            />
-            <p>{itemCount}</p>
-            <img
-              onClick={() => setItemCount((prev) => prev + 1)}
-              src={assets.add_icon_green}
-              alt=""
-            />
+            <img onClick={handleRemove} src={assets.remove_icon_red} alt="" />
+            <p>{count}</p>
+            <img onClick={handleAdd} src={assets.add_icon_green} alt="" />
           </div>
         )}
       </div>
