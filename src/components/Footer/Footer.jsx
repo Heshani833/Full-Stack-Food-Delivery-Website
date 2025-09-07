@@ -15,9 +15,27 @@ const Footer = () => {
             <img src={assets.linkedin_icon} alt="" />
           </div>
         </div>
-        <div className="footer-content-right"></div>
-        <div className="footer-content-center"></div>
+        <div className="footer-content-right">
+          <h2>Get in Touch</h2>
+          <ul>
+            <li>+1 234 567 890</li>
+            <li>info@fooddelivery.com</li>
+          </ul>
+        </div>
+        <div className="footer-content-center">
+          <h2>Company</h2>
+          <ul>
+            <li>Home</li>
+            <li>About Us</li>
+            <li>Delivery</li>
+            <li>Privacy Policy</li>
+          </ul>
+        </div>
       </div>
+      <hr />
+      <p className="footer-copyright">
+        © 2023 Food Delivery Service. All rights reserved.
+      </p>
     </div>
   );
 };
