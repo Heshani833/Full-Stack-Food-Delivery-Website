@@ -46,4 +46,37 @@
   background-color: #e60000;
 }
 
+@media (max-width: 768px) {
+  .header {
+    min-height: 60vh;
+    padding-top: 80px;
+  }
 
+  .header-contents h2 {
+    font-size: 2rem;
+  }
+
+  .header-contents p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 1500px) {
+  .header-contents {
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 750px) {
+  .header-contents {
+    max-width: 65%;
+  }
+
+  .header-contents h2 {
+    display: none;
+  }
+
+  .header-contents button {
+    padding: 2vw 4vw;
+  }
+}
