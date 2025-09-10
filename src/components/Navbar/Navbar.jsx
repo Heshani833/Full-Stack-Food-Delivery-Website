@@ -1,9 +1,10 @@
-// Navbar.jsx
+
 import React, { useState } from "react";
 import "./Navbar.css";
 import logo from "../../assets/logo.png";
 import search_icon from "../../assets/search_icon.png";
 import basket_icon from "../../assets/basket_icon.png";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [menu, setMenu] = useState("home");
@@ -13,30 +14,34 @@ const Navbar = () => {
       <img src={logo} alt="Logo" className="logo" />
 
       <ul className="navbar-menu">
-        <li
+        <Link
+          to={"/"}
           className={menu === "home" ? "active" : ""}
           onClick={() => setMenu("home")}
         >
           Home
-        </li>
-        <li
+        </Link>
+        <a
+          href="#explore-menu"
           className={menu === "menu" ? "active" : ""}
           onClick={() => setMenu("menu")}
         >
           Menu
-        </li>
-        <li
+        </a>
+        <a
+          href="#app-download"
           className={menu === "mobile-app" ? "active" : ""}
           onClick={() => setMenu("mobile-app")}
         >
           Mobile App
-        </li>
-        <li
+        </a>
+        <a
+          href="#footer"
           className={menu === "contact-us" ? "active" : ""}
           onClick={() => setMenu("contact-us")}
         >
           Contact Us
-        </li>
+        </a>
       </ul>
 
       <div className="navbar-right">
