@@ -1,12 +1,26 @@
-import React from 'react'
-import './Cart.css';    
+import React, { useContext } from "react";
+import "./Cart.css";
+import { StoreContext } from "../../context/StoreContext";
 
 const Cart = () => {
-  return (
-    <div>
-        <h1>Cart</h1>
-    </div>
-  )
-}
+  const { cartItems, food_list, removeFromCart } = useContext(StoreContext);
 
-export default Cart
+  return (
+    <div className="cart">
+      <div className="cart-items">
+        <div className="cart-items-title">
+          <p>Item</p>
+          <p>Title</p>
+          <p>Price</p>
+          <p>Quantity</p>
+          <p>Total</p>
+          <p>Remove</p>
+        </div>
+        <br />
+        <hr />
+      </div>
+    </div>
+  );
+};
+
+export default Cart;

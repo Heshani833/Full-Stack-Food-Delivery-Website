@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import "./Navbar.css";
 import logo from "../../assets/logo.png";
@@ -47,7 +46,9 @@ const Navbar = ({ setShowLogin }) => {
       <div className="navbar-right">
         <img src={search_icon} alt="Search" className="search-icon" />
         <div className="navbar-search-icon">
-          <img src={basket_icon} alt="" className="basket-icon" />
+          <Link to="/cart">
+            <img src={basket_icon} alt="" />
+          </Link>
           <div className="dot"></div>
         </div>
         <button onClick={() => setShowLogin(true)}>Sign In</button>
