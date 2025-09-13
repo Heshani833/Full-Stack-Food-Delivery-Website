@@ -1,6 +1,6 @@
 import React from "react";
 import "./Header.css";
-import headerVideo from "../../assets/header-video.mp4"; // Add your video file
+import headerVideo from "../../assets/header-video.mp4";
 
 const Header = () => {
   return (
@@ -10,7 +10,7 @@ const Header = () => {
         Your browser does not support the video tag.
       </video>
       <div className="header-contents">
-        <h2>Order your favourite order</h2>
+        <h2>Order your favorite order</h2>
         <p>
           Discover a wide variety of mouth-watering dishes made with fresh
           ingredients and delivered hot and fast to your door. Enjoy
