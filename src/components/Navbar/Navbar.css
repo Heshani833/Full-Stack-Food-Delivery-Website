@@ -27,7 +27,7 @@
   background: rgb(220, 217, 217);
   font-size: 16px;
   color: black;
-  border: 1px solid tomato;
+  border: 1px solid #c221de;
   padding: 10px 30px;
   border-radius: 50px;
   cursor: pointer;
@@ -35,13 +35,13 @@
 }
 
 .navbar button:hover {
-  background: tomato;
+  background: #c221de;
   color: white;
 }
 
 .navbar .active {
   padding-bottom: 2px;
-  border-bottom: 2px solid tomato;
+  border-bottom: 2px solid #c221de;
 }
 
 .navbar li {
@@ -56,7 +56,7 @@
   position: absolute;
   min-width: 10px;
   min-height: 10px;
-  background-color: tomato;
+  background-color: #c221de;
   border-radius: 5px;
   top: -8px;
   right: -8px;

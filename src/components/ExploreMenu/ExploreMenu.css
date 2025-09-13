@@ -5,13 +5,19 @@
 }
 
 .explore-menu h1 {
-  color: #e0724d;
+  color: #7c158e;
   font-weight: 500;
+}
+
+.explore-menu p {
+  font-size: 1.1rem;
+  color: #cd49e4;
+  line-height: 1.5;
 }
 
 .explore-menu-text {
   max-width: 60%;
-  columns: #808080;
+  columns: #cd49e4;
 }
 
 .explore-menu-list {
@@ -33,7 +39,7 @@
 
 .explore-menu-list-item p {
   margin-top: 10px;
-  color: #ea7134;
+  color: #590f66;
   font-size: max(1.4vw, 16px);
   cursor: pointer;
 }
@@ -41,12 +47,12 @@
 .explore-menu hr {
   margin: 10px 0;
   height: 2px;
-  background-color: #e0724d;
+  background-color: #590f66;
   border: none;
 }
 
 .explore-menu-list-item .active {
-  border: 4px solid #e0724d;
+  border: 4px solid #590f66;
   padding: 4px;
 }
 

@@ -27,6 +27,11 @@
   gap: 20px;
 }
 
+.footer-content-left img {
+  width: 140px;
+  height: auto;
+}
+
 .footer-content-left li,
 .footer-content-right li,
 .footer-content-center li {
@@ -41,7 +46,7 @@
 }
 
 .footer-social-icons img {
-  width: 40px;
+  width: 30px;
   margin-right: 20px;
 }
 

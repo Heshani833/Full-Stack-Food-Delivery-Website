@@ -16,6 +16,7 @@
 }
 
 .food-item-name-rating {
+  color: #590f66;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,7 +40,7 @@
 }
 
 .food-item-price {
-  color: rgb(193, 88, 3);
+  color: #c221de;
   font-size: 20px;
   font-weight: 500;
   margin: 10px 0;
