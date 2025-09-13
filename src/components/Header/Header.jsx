@@ -1,9 +1,14 @@
 import React from "react";
 import "./Header.css";
+import headerVideo from "../../assets/header-video.mp4"; // Add your video file
 
 const Header = () => {
   return (
     <div className="header">
+      <video className="header-video" autoPlay loop muted>
+        <source src={headerVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <div className="header-contents">
         <h2>Order your favourite order</h2>
         <p>
