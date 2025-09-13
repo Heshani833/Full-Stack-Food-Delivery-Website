@@ -33,7 +33,6 @@ const Cart = () => {
                       Remove
                     </button>
                   </p>
-                  <p>x</p>
                 </div>
                 <hr />
               </div>
