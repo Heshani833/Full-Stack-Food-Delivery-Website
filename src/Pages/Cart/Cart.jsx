@@ -1,4 +1,4 @@
-import React, { use, useContext } from "react";
+import React, { useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import "./Cart.css";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const { cartItems, food_list, removeFromCart } = useContext(StoreContext);
 
-  const navigate = useNavigate;
+  // Correct: call useNavigate() as a hook
+  const navigate = useNavigate();
 
   const subtotal = food_list.reduce((acc, item) => {
     if (cartItems[item._id]) {
