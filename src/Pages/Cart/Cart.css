@@ -1,36 +1,126 @@
 .cart {
-  margin-top: 100px;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cart-items {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.cart-items-title,
+.cart-items-item {
+  display: grid;
+  grid-template-columns: 80px 1fr 100px 100px 100px 100px;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
 }
 
 .cart-items-title {
-  display: grid;
-  grid-template-columns: 50px 1fr 100px 100px 100px 50px;
-  align-items: center;
-  color: gray;
-  font-size: 16px;
-  font-weight: 400;
-  column-gap: 22px;
+  font-weight: 600;
+  color: #444;
+  border-bottom: 2px solid #eee;
 }
 
 .cart-items-item {
-  margin: 10px 0;
-  color: black;
-  column-gap: 22px;
+  border-bottom: 1px solid #f1f1f1;
+  transition: background 0.2s ease-in-out;
+}
+
+.cart-items-item:hover {
+  background: #f9f9f9;
 }
 
 .cart-items-item img {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
-  gap: 10px;
+  border-radius: 12px;
 }
 
 .cart-items-item p {
-  gap: 10px;
+  margin: 0;
+  color: #333;
 }
 
-.cart hr {
+.cart-items-item button {
+  background: #ff4d4d;
   border: none;
-  border-top: 1px solid #eee;
-  margin: 10px 0;
+  color: white;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease-in-out;
+}
+
+.cart-items-item button:hover {
+  background: #e03e3e;
+}
+
+.cart-bottom {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cart-total {
+  width: 350px;
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cart-total h2 {
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.cart-total-details {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.75rem 0;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.cart-total-details b {
+  font-size: 1.1rem;
+}
+
+.cart-total button {
+  width: 100%;
+  margin-top: 1rem;
+  background: #4cafef;
+  color: white;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.cart-total button:hover {
+  background: #379cd6;
+}
+
+@media (max-width: 768px) {
+  .cart-items-title,
+  .cart-items-item {
+    grid-template-columns: 60px 1fr 80px 80px 80px 80px;
+    font-size: 0.85rem;
+  }
+
+  .cart-total {
+    width: 100%;
+  }
 }
