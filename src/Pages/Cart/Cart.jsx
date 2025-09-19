@@ -1,9 +1,19 @@
 import React, { useContext } from "react";
-import "./Cart.css";
 import { StoreContext } from "../../context/StoreContext";
+import "./Cart.css";
 
 const Cart = () => {
   const { cartItems, food_list, removeFromCart } = useContext(StoreContext);
+
+  const subtotal = food_list.reduce((acc, item) => {
+    if (cartItems[item._id]) {
+      acc += item.price * cartItems[item._id];
+    }
+    return acc;
+  }, 0);
+
+  const deliveryFee = subtotal > 0 ? 2 : 0;
+  const total = subtotal + deliveryFee;
 
   return (
     <div className="cart">
@@ -16,48 +26,42 @@ const Cart = () => {
           <p>Total</p>
           <p>Remove</p>
         </div>
-        <br />
         <hr />
-        {food_list.map((item, index) => {
-          if (cartItems[item.id] > 0) {
+        {food_list.map((item) => {
+          if (cartItems[item._id]) {
             return (
-              <div>
-                <div className="cart-items-title cart-items-item">
-                  <img src={item.image} alt="" />
-                  <p>{item.name}</p>
-                  <p>${item.price}</p>
-                  <p>{cartItems[item.id]}</p>
-                  <p>${item.price * cartItems[item.id]}</p>
-                  <p>
-                    <button onClick={() => removeFromCart(item.id)}>
-                      Remove
-                    </button>
-                  </p>
-                </div>
-                <hr />
+              <div key={item._id} className="cart-items-item">
+                <img src={item.image} alt="" />
+                <p>{item.name}</p>
+                <p>${item.price}</p>
+                <p>{cartItems[item._id]}</p>
+                <p>${item.price * cartItems[item._id]}</p>
+                <p>
+                  <button onClick={() => removeFromCart(item._id)}>
+                    Remove
+                  </button>
+                </p>
               </div>
             );
           }
+          return null;
         })}
       </div>
+
       <div className="cart-bottom">
         <div className="cart-total">
           <h2>Cart Total</h2>
-          <div>
-            <hr />
-            <div className="cart-total-details">
-              <p>Subtotal</p>
-              <p>{0}</p>
-              <hr />
-            </div>
-            <div className="cart-total-details">
-              <p>Delivary Fee</p>
-              <p>{2}</p>
-            </div>
-            <div className="cart-total-details">
-              <b>Total</b>
-              <b>{0 + 2}</b>
-            </div>
+          <div className="cart-total-details">
+            <p>Subtotal</p>
+            <p>${subtotal}</p>
+          </div>
+          <div className="cart-total-details">
+            <p>Delivery Fee</p>
+            <p>${deliveryFee}</p>
+          </div>
+          <div className="cart-total-details">
+            <b>Total</b>
+            <b>${total}</b>
           </div>
           <button>Proceed to Checkout</button>
         </div>
