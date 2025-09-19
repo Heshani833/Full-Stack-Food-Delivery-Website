@@ -1,9 +1,21 @@
 import React, { useContext } from "react";
-import { StoreContext } from "../../context/StoreContext"; // adjust path if needed
+import { StoreContext } from "../../context/StoreContext";
+import { useNavigate } from "react-router-dom"; 
 import "./PlaceOrder.css";
 
 const PlaceOrder = () => {
-  const { subtotal, deliveryFee, total } = useContext(StoreContext);
+  const { cartItems, food_list } = useContext(StoreContext);
+  const navigate = useNavigate(); 
+
+  const subtotal = food_list.reduce((acc, item) => {
+    if (cartItems[item._id]) {
+      acc += item.price * cartItems[item._id];
+    }
+    return acc;
+  }, 0);
+
+  const deliveryFee = subtotal > 0 ? 2 : 0;
+  const total = subtotal + deliveryFee;
 
   return (
     <form className="place-order">
@@ -41,7 +53,7 @@ const PlaceOrder = () => {
             <b>Total</b>
             <b>${total}</b>
           </div>
-          <button type="button">Proceed to Payment</button>
+          <button>Proceed to Payment</button>
         </div>
       </div>
     </form>
