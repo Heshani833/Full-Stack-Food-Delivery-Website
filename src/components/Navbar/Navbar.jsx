@@ -51,7 +51,6 @@ const Navbar = ({ setShowLogin }) => {
           <Link to="/cart">
             <img src={basket_icon} alt="" />
           </Link>
-          <div className="dot"></div>
         </div>
         <button onClick={() => setShowLogin(true)}>Sign In</button>
       </div>

@@ -52,16 +52,6 @@
   position: relative;
 }
 
-.navbar-search-icon .dot {
-  position: absolute;
-  min-width: 10px;
-  min-height: 10px;
-  background-color: #c221de;
-  border-radius: 5px;
-  top: -8px;
-  right: -8px;
-}
-
 @media (max-width: 1050px) {
   .navbar .logo {
     width: 140px;
