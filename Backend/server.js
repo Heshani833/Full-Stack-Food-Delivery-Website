@@ -1,5 +1,8 @@
 import express from "express";
 import cors from "cors";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import { connectDB } from "./config/db.js";
 import foodRouter from "./routes/foodRoute.js";
 
@@ -7,15 +10,27 @@ import foodRouter from "./routes/foodRoute.js";
 const app = express();
 const port = 4000;
 
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Middlewares
 app.use(express.json());
 app.use(cors());
+
+// Create uploads directory if it doesn't exist
+const uploadsPath = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true });
+  console.log("Created uploads directory at:", uploadsPath);
+}
 
 //db connection
 connectDB();
 
 //api endpoints
-app.use("/food", foodRouter);
+app.use("/api/food", foodRouter);
+app.use("/images", express.static("uploads"));
 
 app.get("/", (req, res) => {
   res.send("API Working");
