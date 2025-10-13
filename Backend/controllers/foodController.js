@@ -1,4 +1,5 @@
 import foodModel from "../models/foodModel.js";
+import fs from "fs";
 import path from "path";
 
 // Add food item
@@ -7,22 +8,18 @@ const addFood = async (req, res) => {
     console.log("Request body:", req.body);
     console.log("Request file:", req.file);
 
-    let image_value = null;
+    let image_filename = null;
 
     if (req.file) {
-      // if request contains protocol/host info (reverse proxy), use it; otherwise fallback to filename
-      const filename = req.file.filename;
-      // prefer using the full URL path so frontend can directly use it
-      const host = req.get("host");
-      const protocol = req.protocol;
-      image_value = `${protocol}://${host}/images/${filename}`;
+      // Store just the filename, not the full URL
+      image_filename = req.file.filename;
     }
 
     const food = new foodModel({
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
-      image: image_value,
+      image: image_filename,
       category: req.body.category,
     });
 
@@ -35,9 +32,28 @@ const addFood = async (req, res) => {
 };
 
 // List food items
-const listFood = async (req, res) => {};
+const listFood = async (req, res) => {
+  try {
+    const foods = await foodModel.find({});
+    res.json({ success: true, data: foods });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message: "Error" });
+  }
+};
 
 // Remove food item
-const removeFood = async (req, res) => {};
+const removeFood = async (req, res) => {
+  try {
+    const food = await foodModel.findById(req.body.id); // find food by ID
+    fs.unlink(`uploads/${food.image}`, () => {}); // delete image file
+
+    await foodModel.findByIdAndDelete(req.body.id);
+    res.json({ success: true, message: "Food Removed" });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message: "Error" });
+  }
+};
 
 export { addFood, listFood, removeFood };

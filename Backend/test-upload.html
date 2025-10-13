@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Food Upload</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      .form-container {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+        font-weight: bold;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      button {
+        background: #4caf50;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+      }
+      button:hover {
+        background: #45a049;
+      }
+      .response {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 4px;
+        display: none;
+      }
+      .response.success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .response.error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      .image-preview {
+        margin-top: 10px;
+        max-width: 200px;
+        display: none;
+      }
+      .image-preview img {
+        width: 100%;
+        border-radius: 4px;
+        border: 2px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>🍔 Test Food Upload Form</h2>
+      <form id="foodForm" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="name">Food Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="e.g., Caesar Salad"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea
+            id="description"
+            name="description"
+            required
+            placeholder="Enter food description"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price:</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            required
+            placeholder="e.g., 15"
+            step="0.01"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select id="category" name="category" required>
+            <option value="">Select Category</option>
+            <option value="Salad">Salad</option>
+            <option value="Rolls">Rolls</option>
+            <option value="Deserts">Deserts</option>
+            <option value="Sandwich">Sandwich</option>
+            <option value="Cake">Cake</option>
+            <option value="Pure Veg">Pure Veg</option>
+            <option value="Pasta">Pasta</option>
+            <option value="Noodles">Noodles</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="image">Food Image:</label>
+          <input
+            type="file"
+            id="image"
+            name="image"
+            accept="image/*"
+            required
+          />
+          <div class="image-preview" id="imagePreview">
+            <img id="preview" src="" alt="Preview" />
+          </div>
+        </div>
+
+        <button type="submit">Upload Food Item</button>
+      </form>
+
+      <div class="response" id="response"></div>
+    </div>
+
+    <script>
+      // Image preview
+      document.getElementById("image").addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            document.getElementById("preview").src = e.target.result;
+            document.getElementById("imagePreview").style.display = "block";
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Form submission
+      document
+        .getElementById("foodForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const formData = new FormData();
+          formData.append("name", document.getElementById("name").value);
+          formData.append(
+            "description",
+            document.getElementById("description").value
+          );
+          formData.append("price", document.getElementById("price").value);
+          formData.append(
+            "category",
+            document.getElementById("category").value
+          );
+          formData.append("image", document.getElementById("image").files[0]);
+
+          const responseDiv = document.getElementById("response");
+          responseDiv.style.display = "none";
+
+          try {
+            const response = await fetch("http://localhost:4000/api/food/add", {
+              method: "POST",
+              body: formData,
+            });
+
+            const data = await response.json();
+
+            responseDiv.style.display = "block";
+            if (data.success) {
+              responseDiv.className = "response success";
+              responseDiv.innerHTML = `
+                        <strong>✅ Success!</strong><br>
+                        ${data.message}<br>
+                        Food ID: ${data.food._id}<br>
+                        Image: ${data.food.image || "No image uploaded"}
+                    `;
+              document.getElementById("foodForm").reset();
+              document.getElementById("imagePreview").style.display = "none";
+            } else {
+              responseDiv.className = "response error";
+              responseDiv.innerHTML = `<strong>❌ Error!</strong><br>${data.message}`;
+            }
+          } catch (error) {
+            responseDiv.style.display = "block";
+            responseDiv.className = "response error";
+            responseDiv.innerHTML = `<strong>❌ Error!</strong><br>${error.message}<br><br>Make sure the server is running on http://localhost:4000`;
+          }
+        });
+    </script>
+  </body>
+</html>
