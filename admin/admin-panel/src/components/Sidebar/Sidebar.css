@@ -83,7 +83,6 @@
   font-weight: 600;
 }
 
-/* Active state styling */
 .sidebar-option.active {
   background: rgba(255, 255, 255, 0.15);
   transform: translateX(8px);
@@ -101,5 +100,35 @@
 .main-content {
   margin-left: 280px; 
 }
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+    position: fixed;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-option {
+    padding: 12px 20px;
+    margin: 0 12px;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100%;
+    position: fixed;
+  }
+}
+
 
 
