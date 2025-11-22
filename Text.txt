@@ -1,0 +1,5 @@
+The key={index} prop is used for React's list rendering optimization.
+React needs a way to uniquely identify each element. The key prop helps React:
+1.Track which items have changed, been added, or removed
+2.Preserve component state - Without keys, React might accidentally reuse the wrong component instances
+3.Improve performance - Keys help React minimize unnecessary re-renders
