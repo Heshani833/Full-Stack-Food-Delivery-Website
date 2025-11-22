@@ -40,7 +40,12 @@ const List = () => {
   }, []);
   return (
     <div className="list add flex-col">
-      <p>All Food LList</p>
+      <div className="list-top-bar">
+        <h2>All Food List</h2>
+        <div className="list-stats">
+          <span className="total-items">Total Items: {lists.length}</span>
+        </div>
+      </div>
       <div className="list-table">
         <div className="list-table-format tittle">
           <b>Image</b>
