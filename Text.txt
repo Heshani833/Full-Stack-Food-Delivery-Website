@@ -3,3 +3,10 @@ React needs a way to uniquely identify each element. The key prop helps React:
 1.Track which items have changed, been added, or removed
 2.Preserve component state - Without keys, React might accidentally reuse the wrong component instances
 3.Improve performance - Keys help React minimize unnecessary re-renders
+
+Backend/UserModel............................
+
+const userSchema = new mongoose.Schema({ : Create a new schema blueprint that defines the structure and rules for 
+user documentation.
+
+const UserModel = mongoose.model.user || mongoose.model("user", userSchema); : Creates or retrieves the "user" model. It first checks if mongoose.model.user exists; if not, it creates a new model named "user" with the defined schema. This prevents model redefinition errors
