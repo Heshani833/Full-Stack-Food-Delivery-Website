@@ -5,7 +5,29 @@ import validator from "validator";
 
 //login user
 
-const loginUser = async (req, res) => {};
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid email or password" });
+    } 
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid email or password" });
+    }
+    const token = createToken(user._id);
+    res.json({ success: true, token });
+  }catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
 
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET);
