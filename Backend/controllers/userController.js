@@ -7,11 +7,15 @@ import validator from "validator";
 
 const loginUser = async (req, res) => {};
 
+const createToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET);
+};
+
 //register user
 
 const registerUser = async (req, res) => {
-const { name, email, password } = req.body;
-try {
+  const { name, email, password } = req.body;
+  try {
     // Check if user already exists
     const exists = await UserModel.findOne({ email });
     if (exists) {
@@ -45,14 +49,13 @@ try {
       password: hashedPassword,
     });
 
-  const savedUser = await newUser.save();
-    res
-      .status(201)
-      .json({ success: true, message: "User registered successfully" });
-
-
-} catch (error) {}
-
+    const user = await newUser.save();
+    const token = createToken(user._id);
+    res.json({ success: true, token });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
 };
 
 export { loginUser, registerUser };

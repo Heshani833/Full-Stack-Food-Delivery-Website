@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 import { connectDB } from "./config/db.js";
 import foodRouter from "./routes/foodRoute.js";
 import userRouter from "./routes/userRoute.js";
+import "dotenv/config";
 
 // App Config
 const app = express();
@@ -17,6 +18,7 @@ const __dirname = path.dirname(__filename);
 
 // Middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Create uploads directory if it doesn't exist
