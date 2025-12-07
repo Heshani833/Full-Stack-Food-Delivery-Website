@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { StoreContext } from "../../context/StoreContext";
-import { useNavigate } from "react-router-dom"; 
+import { StoreContext } from "../../Context/StoreContext";
+import { useNavigate } from "react-router-dom";
 import "./PlaceOrder.css";
 
 const PlaceOrder = () => {
   const { cartItems, food_list } = useContext(StoreContext);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const subtotal = food_list.reduce((acc, item) => {
     if (cartItems[item._id]) {

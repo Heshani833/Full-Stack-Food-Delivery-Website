@@ -20,5 +20,6 @@ export const connectDB = async () => {
     console.log("2. Verify network connectivity");
     console.log("3. Check if your IP is whitelisted in MongoDB Atlas");
     console.log("4. Try using standard connection string instead of SRV");
+    console.log("\nServer will continue running without database connection.");
   }
 };

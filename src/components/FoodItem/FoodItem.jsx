@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { StoreContext } from "../../context/StoreContext";
+import { StoreContext } from "../../Context/StoreContext";
 import { assets } from "../../assets/assets";
 import "./FoodItem.css";
 
 const FoodItem = ({ id, name, price, description, image }) => {
-  const { addToCart, removeFromCart, cartItems } = useContext(StoreContext);
+  const { addToCart, removeFromCart, cartItems, url } =
+    useContext(StoreContext);
 
   const count = cartItems[id] || 0; // only this item count
 
