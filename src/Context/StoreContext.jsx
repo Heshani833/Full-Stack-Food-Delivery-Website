@@ -25,6 +25,19 @@ const StoreContextProvider = ({ children }) => {
     });
   };
 
+  const getTotalCartAmount = () => {
+    let totalAmount = 0;
+    for (const item in cartItems) {
+      if (cartItems[item] > 0) {
+        let itemInfo = food_list.find((product) => product._id === item);
+        if (itemInfo) {
+          totalAmount += itemInfo.price * cartItems[item];
+        }
+      }
+    }
+    return totalAmount;
+  };
+
   useEffect(() => {
     console.log("Cart Items:", cartItems);
   }, [cartItems]);
@@ -42,6 +55,7 @@ const StoreContextProvider = ({ children }) => {
         cartItems,
         addToCart,
         removeFromCart,
+        getTotalCartAmount,
         url,
         token,
         setToken,
