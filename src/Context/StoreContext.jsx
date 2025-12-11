@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import { food_list as localFoodList } from "../assets/assets";
+import { set } from "mongoose";
 
 export const StoreContext = createContext(null);
 
@@ -55,12 +56,22 @@ const StoreContextProvider = ({ children }) => {
     console.log("Food list fetched:", response.data.data);
   };
 
+  const loadCartData = async (token) => {
+    const response = await axios.post(
+      url + "/api/cart/get",
+      {},
+      { headers: { token } }
+    );
+    setCartItems(response.data.cartData);
+  };
+
   useEffect(() => {
     async function loadData() {
       // Commented out API fetch to use local food list
-      // await fetchFoodList();
+      await fetchFoodList();
       if (localStorage.getItem("token")) {
         setToken(localStorage.getItem("token"));
+        await loadCartData(localStorage.getItem("token"));
       }
     }
 
