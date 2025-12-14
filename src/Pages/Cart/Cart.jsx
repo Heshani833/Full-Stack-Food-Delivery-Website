@@ -10,9 +10,14 @@ const Cart = () => {
   // Correct: call useNavigate() as a hook
   const navigate = useNavigate();
 
+  // Return early if food_list is not loaded
+  if (!food_list || !Array.isArray(food_list)) {
+    return <div className="cart">Loading...</div>;
+  }
+
   const subtotal = food_list.reduce((acc, item) => {
-    if (cartItems[item._id]) {
-      acc += item.price * cartItems[item._id];
+    if (item && item._id && cartItems[item._id]) {
+      acc += (item.price || 0) * cartItems[item._id];
     }
     return acc;
   }, 0);
@@ -32,10 +37,10 @@ const Cart = () => {
           <p>Remove</p>
         </div>
         <hr />
-        {food_list.map((item) => {
-          if (cartItems[item._id]) {
+        {food_list?.map((item, index) => {
+          if (item && item._id && cartItems[item._id]) {
             return (
-              <div key={item._id} className="cart-items-item">
+              <div key={item._id || index} className="cart-items-item">
                 <img src={item.image} alt="" />
                 <p>{item.name}</p>
                 <p>${item.price}</p>

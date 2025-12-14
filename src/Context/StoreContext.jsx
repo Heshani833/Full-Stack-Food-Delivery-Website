@@ -50,27 +50,52 @@ const StoreContextProvider = ({ children }) => {
   };
 
   const fetchFoodList = async () => {
-    const response = await axios.get(url + "/api/food/list");
-    setFoodList(response.data.data);
-    console.log("Food list fetched:", response.data.data);
+    try {
+      const response = await axios.get(url + "/api/food/list");
+      if (
+        response.data.success &&
+        response.data.data &&
+        Array.isArray(response.data.data) &&
+        response.data.data.length > 0
+      ) {
+        setFoodList(response.data.data);
+        console.log(
+          "Food list fetched from API:",
+          response.data.data.length,
+          "items"
+        );
+      } else {
+        console.log("Using local food list - no data from API");
+        // Keep the local food list, don't change it
+      }
+    } catch (error) {
+      console.log("Error fetching food list, using local data:", error.message);
+      // Keep the local food list, don't change it
+    }
   };
 
   const loadCartData = async (token) => {
-    const response = await axios.post(
-      url + "/api/cart/get",
-      {},
-      { headers: { token } }
-    );
-    setCartItems(response.data.cartData);
+    try {
+      const response = await axios.post(
+        url + "/api/cart/get",
+        {},
+        { headers: { token } }
+      );
+      if (response.data.cartData) {
+        setCartItems(response.data.cartData);
+      }
+    } catch (error) {
+      console.log("Error loading cart data:", error.message);
+    }
   };
 
   useEffect(() => {
     async function loadData() {
-      // Commented out API fetch to use local food list
       await fetchFoodList();
-      if (localStorage.getItem("token")) {
-        setToken(localStorage.getItem("token"));
-        await loadCartData(localStorage.getItem("token"));
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+        setToken(storedToken);
+        await loadCartData(storedToken);
       }
     }
 
@@ -80,12 +105,6 @@ const StoreContextProvider = ({ children }) => {
   useEffect(() => {
     console.log("Cart Items:", cartItems);
   }, [cartItems]);
-
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      setToken(localStorage.getItem("token"));
-    }
-  }, []);
 
   return (
     <StoreContext.Provider

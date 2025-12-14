@@ -1,41 +1,123 @@
-import React, { useContext } from "react";
+import React, { use, useContext } from "react";
 import { StoreContext } from "../../Context/StoreContext";
 import { useNavigate } from "react-router-dom";
 import "./PlaceOrder.css";
 
 const PlaceOrder = () => {
-  const { cartItems, food_list } = useContext(StoreContext);
-  const navigate = useNavigate();
+  // const { cartItems, food_list } = useContext(StoreContext);
+  // const navigate = useNavigate();
 
-  const subtotal = food_list.reduce((acc, item) => {
-    if (cartItems[item._id]) {
-      acc += item.price * cartItems[item._id];
-    }
-    return acc;
-  }, 0);
+  // const subtotal = food_list.reduce((acc, item) => {
+  //   if (cartItems[item._id]) {
+  //     acc += item.price * cartItems[item._id];
+  //   }
+  //   return acc;
+  // }, 0);
 
-  const deliveryFee = subtotal > 0 ? 2 : 0;
-  const total = subtotal + deliveryFee;
+  // const deliveryFee = subtotal > 0 ? 2 : 0;
+  // const total = subtotal + deliveryFee;
+
+  const { getCartAmount, token, food_list, cartItems, url } =
+    useContext(StoreContext);
+
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    street: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "",
+    phone: "",
+  });
+
+  const onChangeHandler = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setData((data) => ({
+      ...data,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <form className="place-order">
       <div className="place-order-left">
         <p className="title">Delivery Information</p>
         <div className="multi-fields">
-          <input type="text" placeholder="First Name" />
-          <input type="text" placeholder="Last Name" />
+          <input
+            name="firstName"
+            onChange={onChangeHandler}
+            value={data.firstName}
+            type="text"
+            placeholder="First Name"
+          />
+          <input
+            name="lastName"
+            onChange={onChangeHandler}
+            value={data.lastName}
+            type="text"
+            placeholder="Last Name"
+          />
         </div>
-        <input type="email" placeholder="Email" />
-        <input type="text" placeholder="Address" />
+        <input
+          name="email"
+          onChange={onChangeHandler}
+          value={data.email}
+          type="email"
+          placeholder="Email"
+        />
+        <input
+          name="street"
+          onChange={onChangeHandler}
+          value={data.street}
+          type="text"
+          placeholder="Address"
+        />
         <div className="multi-fields">
-          <input type="text" placeholder="City" />
-          <input type="text" placeholder="State" />
+          <input
+            name="city"
+            onChange={onChangeHandler}
+            value={data.city}
+            type="text"
+            placeholder="City"
+          />
+          <input
+            name="state"
+            onChange={onChangeHandler}
+            value={data.state}
+            type="text"
+            placeholder="State"
+          />
         </div>
         <div className="multi-fields">
-          <input type="text" placeholder="Zip Code" />
-          <input type="text" placeholder="Country" />
+          <input
+            name="zipCode"
+            onChange={onChangeHandler}
+            value={data.zipCode}
+            type="text"
+            placeholder="Zip Code"
+          />
+          <input
+            name="country"
+            onChange={onChangeHandler}
+            value={data.country}
+            type="text"
+            placeholder="Country"
+          />
         </div>
-        <input type="text" placeholder="Phone Number" />
+        <input
+          name="phone"
+          onChange={onChangeHandler}
+          value={data.phone}
+          type="text"
+          placeholder="Phone Number"
+        />
       </div>
 
       <div className="place-order-right">
