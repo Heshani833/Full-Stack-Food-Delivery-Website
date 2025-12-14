@@ -1,7 +1,6 @@
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import { food_list as localFoodList } from "../assets/assets";
-import { set } from "mongoose";
 
 export const StoreContext = createContext(null);
 
