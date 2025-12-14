@@ -1,24 +1,14 @@
-import React, { use, useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../Context/StoreContext";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./PlaceOrder.css";
 
 const PlaceOrder = () => {
-  // const { cartItems, food_list } = useContext(StoreContext);
-  // const navigate = useNavigate();
-
-  // const subtotal = food_list.reduce((acc, item) => {
-  //   if (cartItems[item._id]) {
-  //     acc += item.price * cartItems[item._id];
-  //   }
-  //   return acc;
-  // }, 0);
-
-  // const deliveryFee = subtotal > 0 ? 2 : 0;
-  // const total = subtotal + deliveryFee;
-
-  const { getCartAmount, token, food_list, cartItems, url } =
+  const { getTotalCartAmount, token, food_list, cartItems, url } =
     useContext(StoreContext);
+
+  const navigate = useNavigate();
 
   const [data, setData] = useState({
     firstName: "",
@@ -41,12 +31,53 @@ const PlaceOrder = () => {
     }));
   };
 
+  const placeOrder = async (event) => {
+    event.preventDefault();
+    let orderItems = [];
+    food_list.map((item) => {
+      if (cartItems[item._id] > 0) {
+        let itemInfo = item;
+        itemInfo["quantity"] = cartItems[item._id];
+        orderItems.push(itemInfo);
+      }
+    });
+
+    let orderData = {
+      address: data,
+      items: orderItems,
+      amount: getTotalCartAmount() + 2,
+    };
+
+    try {
+      let response = await axios.post(
+        url + "/api/order/placeorder",
+        orderData,
+        {
+          headers: { token },
+        }
+      );
+      if (response.data.success) {
+        const { url: sessionUrl } = response.data;
+        window.location.replace(sessionUrl);
+      } else {
+        alert("Error placing order");
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      alert("Error placing order");
+    }
+  };
+
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    if (!token) {
+      navigate("/cart");
+    } else if (getTotalCartAmount() === 0) {
+      navigate("/cart");
+    }
+  }, [token]);
 
   return (
-    <form className="place-order">
+    <form onSubmit={placeOrder} className="place-order">
       <div className="place-order-left">
         <p className="title">Delivery Information</p>
         <div className="multi-fields">
@@ -125,17 +156,17 @@ const PlaceOrder = () => {
           <h2>Cart Total</h2>
           <div className="cart-total-details">
             <p>Subtotal</p>
-            <p>${subtotal}</p>
+            <p>${getTotalCartAmount()}</p>
           </div>
           <div className="cart-total-details">
             <p>Delivery Fee</p>
-            <p>${deliveryFee}</p>
+            <p>${getTotalCartAmount() === 0 ? 0 : 2}</p>
           </div>
           <div className="cart-total-details">
             <b>Total</b>
-            <b>${total}</b>
+            <b>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}</b>
           </div>
-          <button>Proceed to Payment</button>
+          <button type="submit">Proceed to Payment</button>
         </div>
       </div>
     </form>
