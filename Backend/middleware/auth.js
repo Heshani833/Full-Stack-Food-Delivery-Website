@@ -1,17 +1,17 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
-    const {token} = req.headers;
-    if (!token) {
-        return res.json({ success: false, message: 'No token provided' });
-    }
-    try {
-        const token_decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.body.userId = token_decoded.id;
-        next();
-    } catch (error) {
-        return res.json({ success: false, message: 'Invalid token' });
-    }
-}
+  const { token } = req.headers;
+  if (!token) {
+    return res.json({ success: false, message: "No token provided" });
+  }
+  try {
+    const token_decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = token_decoded.id;
+    next();
+  } catch (error) {
+    return res.json({ success: false, message: "Invalid token" });
+  }
+};
 
 export default authMiddleware;
