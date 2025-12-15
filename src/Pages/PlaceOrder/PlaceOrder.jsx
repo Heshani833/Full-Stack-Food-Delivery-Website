@@ -82,6 +82,7 @@ const PlaceOrder = () => {
         <p className="title">Delivery Information</p>
         <div className="multi-fields">
           <input
+            required
             name="firstName"
             onChange={onChangeHandler}
             value={data.firstName}
@@ -89,6 +90,7 @@ const PlaceOrder = () => {
             placeholder="First Name"
           />
           <input
+            required
             name="lastName"
             onChange={onChangeHandler}
             value={data.lastName}
@@ -97,6 +99,7 @@ const PlaceOrder = () => {
           />
         </div>
         <input
+          required
           name="email"
           onChange={onChangeHandler}
           value={data.email}
@@ -104,6 +107,7 @@ const PlaceOrder = () => {
           placeholder="Email"
         />
         <input
+          required
           name="street"
           onChange={onChangeHandler}
           value={data.street}
@@ -112,6 +116,7 @@ const PlaceOrder = () => {
         />
         <div className="multi-fields">
           <input
+            required
             name="city"
             onChange={onChangeHandler}
             value={data.city}
@@ -119,6 +124,7 @@ const PlaceOrder = () => {
             placeholder="City"
           />
           <input
+            required
             name="state"
             onChange={onChangeHandler}
             value={data.state}
@@ -128,6 +134,7 @@ const PlaceOrder = () => {
         </div>
         <div className="multi-fields">
           <input
+            required
             name="zipCode"
             onChange={onChangeHandler}
             value={data.zipCode}
@@ -135,6 +142,7 @@ const PlaceOrder = () => {
             placeholder="Zip Code"
           />
           <input
+            required
             name="country"
             onChange={onChangeHandler}
             value={data.country}
@@ -143,6 +151,7 @@ const PlaceOrder = () => {
           />
         </div>
         <input
+          required
           name="phone"
           onChange={onChangeHandler}
           value={data.phone}

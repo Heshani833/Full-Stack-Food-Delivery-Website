@@ -32,7 +32,7 @@ const LoginPopup = ({ setShowLogin }) => {
 
     try {
       const response = await axios.post(newUrl, data);
-      console.log(response.data);
+      console.log("API Response:", response.data);
 
       if (response.data.success) {
         setToken(response.data.token);
@@ -43,11 +43,16 @@ const LoginPopup = ({ setShowLogin }) => {
       }
     } catch (error) {
       console.error("Login/Signup Error:", error);
+      console.error("Error details:", error.response?.data || error.message);
 
       if (error.response) {
         alert(error.response.data.message || "Something went wrong!");
+      } else if (error.request) {
+        alert(
+          "Cannot connect to server. Make sure backend is running on http://localhost:4000"
+        );
       } else {
-        alert("Network error. Please try again.");
+        alert("Error: " + error.message);
       }
     }
   };

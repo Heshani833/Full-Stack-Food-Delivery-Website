@@ -8,24 +8,30 @@ import validator from "validator";
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
+    console.log("Login attempt for email:", email);
     const user = await UserModel.findOne({ email });
     if (!user) {
+      console.log("User not found:", email);
       return res
         .status(400)
         .json({ success: false, message: "Invalid email or password" });
-    } 
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
+      console.log("Password mismatch for:", email);
       return res
         .status(400)
         .json({ success: false, message: "Invalid email or password" });
     }
     const token = createToken(user._id);
+    console.log("Login successful for:", email);
     res.json({ success: true, token });
-  }catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: "Server Error" });
+  } catch (error) {
+    console.error("Login error:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Server Error: " + error.message });
   }
 };
 
