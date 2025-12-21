@@ -87,4 +87,17 @@ const userOrders = async (req, res) => {
 
 };
 
-export { placeOrder , verifyOrder, userOrders };
+
+//listing all orders for admin
+
+const listOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.json({ success: true,data: orders });
+  } catch (error) {
+    console.error("Error fetching all orders:", error);
+    res.json({ success: false, message: "Internal server error" });
+  }
+};
+
+export { placeOrder , verifyOrder, userOrders , listOrders};
