@@ -9,10 +9,20 @@ const FoodItem = ({ id, name, price, description, image }) => {
 
   const count = cartItems[id] || 0; // only this item count
 
+  // Local images (from assets) are resolved by Vite and start with "/" or "http"
+  // API images are just filenames that need the server URL prefix
+  const imageUrl =
+    typeof image === "string" &&
+    !image.startsWith("http") &&
+    !image.startsWith("/") &&
+    !image.startsWith("data:")
+      ? `${url}/images/${image}`
+      : image;
+
   return (
     <div className="food-item">
       <div className="food-item-img-container">
-        <img className="food-item-image" src={image} alt={name} />
+        <img className="food-item-image" src={imageUrl} alt={name} />
         {count === 0 ? (
           <img
             className="add"

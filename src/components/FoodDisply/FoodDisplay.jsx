@@ -11,7 +11,10 @@ const FoodDisplay = ({ category }) => {
       <h2>Food Display</h2>
       <div className="food-display-list">
         {food_list.map((item) => {
-          if (category === "All" || category === item.category) {
+          if (
+            category === "All" ||
+            category.toLowerCase() === item.category.toLowerCase()
+          ) {
             return (
               <FoodItem
                 key={item._id} //  use unique _id

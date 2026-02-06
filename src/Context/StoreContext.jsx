@@ -58,11 +58,19 @@ const StoreContextProvider = ({ children }) => {
         Array.isArray(response.data.data) &&
         response.data.data.length > 0
       ) {
-        setFoodList(response.data.data);
+        // Merge API items with local items (API items take priority)
+        const apiItems = response.data.data;
+        const apiIds = new Set(apiItems.map((item) => item._id));
+        const localOnly = localFoodList.filter(
+          (item) => !apiIds.has(item._id)
+        );
+        setFoodList([...apiItems, ...localOnly]);
         console.log(
-          "Food list fetched from API:",
-          response.data.data.length,
-          "items"
+          "Food list: ",
+          apiItems.length,
+          "from API +",
+          localOnly.length,
+          "local items"
         );
       } else {
         console.log("Using local food list - no data from API");
